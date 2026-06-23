@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="es-DO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clean Tech | Pulido y Restauración de Pisos — Ing. Jose R. Paulino</title>
+<meta name="description" content="Pulido, cristalizado y restauración profesional de pisos de granito, mármol y terrazo en República Dominicana. Servicio dirigido por un Ingeniero Civil con equipos propios.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================
+     TOKENS
+  ============================================ */
+  :root{
+    --bg:           #e4e7eb;
+    --bg-light:     #f4f6f8;
+    --shadow-dark:  #b9bec7;
+    --shadow-light: #ffffff;
+
+    --ink:          #333a45;
+    --ink-soft:     #6b7484;
+
+    --accent:       #2b5876;   /* slate blue — engineering / trust  */
+    --accent-deep:  #1c3c52;
+    --gold:         #d98e3f;   /* polish / shine */
+    --gold-deep:    #b9701f;
+
+    --wa:           #2fae6a;   /* whatsapp green, desaturated to fit palette */
+
+    --r-lg: 32px;
+    --r-md: 22px;
+    --r-sm: 14px;
+
+    --font-display: 'Sora', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  img,svg{ display:block; max-width:100%; }
+
+  a{ color:inherit; text-decoration:none; }
+
+  ::selection{ background:var(--gold); color:#fff; }
+
+  /* respect reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  /* ============================================
+     NEUMORPHIC PRIMITIVES
+  ============================================ */
+
+  /* Extruded / raised surface */
+  .neu-raised{
+    background:var(--bg);
+    border-radius:var(--r-md);
+    box-shadow:
+      8px 8px 16px var(--shadow-dark),
+      -8px -8px 16px var(--shadow-light);
+  }
+
+  /* Pressed / concave surface (used for hover/active states) */
+  .neu-pressed{
+    background:var(--bg);
+    border-radius:var(--r-md);
+    box-shadow:
+      inset 6px 6px 12px var(--shadow-dark),
+      inset -6px -6px 12px var(--shadow-light);
+  }
+
+  /* Flat soft surface (subtle, for large panels) */
+  .neu-flat{
+    background:var(--bg);
+    border-radius:var(--r-lg);
+    box-shadow:
+      4px 4px 10px var(--shadow-dark),
+      -4px -4px 10px var(--shadow-light);
+  }
+
+  /* ============================================
+     LAYOUT SHELL
+  ============================================ */
+  .wrap{
+    max-width:1240px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ============================================
+     NAVBAR
+  ============================================ */
+  .navbar{
+    position:sticky;
+    top:0;
+    z-index:40;
+    background:rgba(228,231,235,0.85);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,0.6);
+  }
+  .navbar-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 32px;
+    max-width:1240px;
+    margin:0 auto;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .brand-mark{
+    width:44px;
+    height:44px;
+    border-radius:14px;
+    display:grid;
+    place-items:center;
+    box-shadow:5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+    flex-shrink:0;
+  }
+  .brand-mark svg{ width:24px; height:24px; }
+  .brand-text{ display:flex; flex-direction:column; line-height:1.1; }
+  .brand-text .name{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:1.05rem;
+    letter-spacing:0.01em;
+    color:var(--accent-deep);
+  }
+  .brand-text .tag{
+    font-size:0.66rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    font-weight:600;
+  }
+
+  .nav-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:11px 20px;
+    border-radius:var(--r-sm);
+    font-family:var(--font-body);
+    font-weight:700;
+    font-size:0.86rem;
+    color:var(--accent-deep);
+    box-shadow:5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+    transition:box-shadow 0.25s ease, transform 0.25s ease, color 0.25s ease;
+  }
+  .nav-cta:hover{
+    box-shadow:inset 3px 3px 7px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light);
+    color:var(--gold-deep);
+  }
+  .nav-cta:active{ transform:scale(0.97); }
+
+  /* ============================================
+     HERO
+  ============================================ */
+  .hero{
+    position:relative;
+    padding:84px 0 100px;
+    overflow:hidden;
+  }
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:56px;
+    align-items:center;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 18px 9px 14px;
+    border-radius:50px;
+    font-size:0.78rem;
+    font-weight:700;
+    letter-spacing:0.04em;
+    color:var(--accent-deep);
+    box-shadow:5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+    margin-bottom:28px;
+  }
+  .eyebrow .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 0 3px rgba(217,142,63,0.18);
+  }
+
+  .hero h1{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:clamp(2.3rem, 4.6vw, 3.6rem);
+    line-height:1.08;
+    letter-spacing:-0.01em;
+    color:var(--accent-deep);
+    margin-bottom:22px;
+  }
+  .hero h1 .accent{
+    color:var(--gold-deep);
+    position:relative;
+    white-space:nowrap;
+  }
+
+  .hero p.lead{
+    font-size:1.12rem;
+    color:var(--ink-soft);
+    max-width:540px;
+    margin-bottom:36px;
+  }
+  .hero p.lead strong{ color:var(--ink); font-weight:600; }
+
+  .hero-ctas{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-bottom:44px;
+  }
+
+  .btn-primary{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    padding:18px 30px;
+    border-radius:var(--r-sm);
+    background:linear-gradient(145deg, #34c97a, #259a5b);
+    color:#fff;
+    font-family:var(--font-body);
+    font-weight:700;
+    font-size:1rem;
+    box-shadow:
+      7px 7px 14px var(--shadow-dark),
+      -7px -7px 14px var(--shadow-light),
+      inset 0 1px 1px rgba(255,255,255,0.25);
+    transition:transform 0.22s ease, box-shadow 0.22s ease;
+  }
+  .btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:
+      9px 9px 18px var(--shadow-dark),
+      -9px -9px 18px var(--shadow-light),
+      inset 0 1px 1px rgba(255,255,255,0.3);
+  }
+  .btn-primary:active{
+    transform:translateY(0px) scale(0.98);
+    box-shadow:inset 3px 3px 8px rgba(0,0,0,0.25), inset -2px -2px 6px rgba(255,255,255,0.15);
+  }
+  .btn-primary svg{ width:22px; height:22px; flex-shrink:0; }
+
+  .btn-secondary{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:17px 26px;
+    border-radius:var(--r-sm);
+    color:var(--ink);
+    font-weight:700;
+    font-size:0.96rem;
+    box-shadow:6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+    transition:box-shadow 0.22s ease;
+  }
+  .btn-secondary:hover{
+    box-shadow:inset 4px 4px 9px var(--shadow-dark), inset -4px -4px 9px var(--shadow-light);
+  }
+
+  .trust-row{
+    display:flex;
+    gap:28px;
+    flex-wrap:wrap;
+  }
+  .trust-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:0.86rem;
+    font-weight:600;
+    color:var(--ink-soft);
+  }
+  .trust-item .ico{
+    width:34px; height:34px;
+    border-radius:10px;
+    display:grid; place-items:center;
+    box-shadow:4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+    flex-shrink:0;
+  }
+  .trust-item .ico svg{ width:17px; height:17px; color:var(--accent); }
+
+  /* ---------- Signature visual: the rotating "buffing disc" ---------- */
+  .hero-visual{
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:440px;
+  }
+
+  .disc-orbit{
+    position:relative;
+    width:380px;
+    height:380px;
+  }
+
+  .disc-ring{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    box-shadow:10px 10px 22px var(--shadow-dark), -10px -10px 22px var(--shadow-light);
+  }
+  .disc-ring.r2{ inset:34px; box-shadow:8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light); }
+  .disc-ring.r3{ inset:68px; box-shadow:6px 6px 13px var(--shadow-dark), -6px -6px 13px var(--shadow-light); }
+
+  .disc-core{
+    position:absolute;
+    inset:102px;
+    border-radius:50%;
+    background:
+      conic-gradient(from 0deg,
+        #eef1f4 0deg, #fbfcfd 40deg, #dfe3e8 90deg, #f6f8f9 140deg,
+        #e2e6ea 200deg, #fafbfc 260deg, #dce0e6 320deg, #eef1f4 360deg);
+    box-shadow:
+      inset 5px 5px 12px rgba(185,190,199,0.7),
+      inset -5px -5px 12px rgba(255,255,255,0.9),
+      4px 4px 10px var(--shadow-dark);
+    animation:spin 14s linear infinite;
+  }
+  .disc-core::before{
+    content:'';
+    position:absolute;
+    inset:30%;
+    border-radius:50%;
+    background:var(--bg);
+    box-shadow:
+      inset 3px 3px 7px var(--shadow-dark),
+      inset -3px -3px 7px var(--shadow-light);
+  }
+  .disc-core::after{
+    content:'';
+    position:absolute;
+    inset:43%;
+    border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 0 6px rgba(217,142,63,0.15), 2px 2px 5px rgba(0,0,0,0.2);
+  }
+
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  .float-card{
+    position:absolute;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    border-radius:var(--r-sm);
+    box-shadow:7px 7px 15px var(--shadow-dark), -7px -7px 15px var(--shadow-light);
+    animation:bob 5s ease-in-out infinite;
+  }
+  .float-card .ico{
+    width:36px; height:36px;
+    border-radius:10px;
+    display:grid; place-items:center;
+    background:var(--bg);
+    box-shadow:inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
+    flex-shrink:0;
+  }
+  .float-card .ico svg{ width:18px; height:18px; color:var(--gold-deep); }
+  .float-card .label{ font-size:0.66rem; color:var(--ink-soft); font-weight:600; text-transform:uppercase; letter-spacing:0.03em; }
+  .float-card .val{ font-family:var(--font-display); font-weight:700; font-size:0.95rem; color:var(--accent-deep); }
+
+  .float-card.fc-1{ top:0; left:-20px; animation-delay:0s; }
+  .float-card.fc-2{ bottom:18px; right:-26px; animation-delay:1.4s; }
+
+  @keyframes bob{
+    0%, 100%{ transform:translateY(0); }
+    50%{ transform:translateY(-10px); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .disc-core{ animation:none; }
+    .float-card{ animation:none; }
+  }
+
+  /* ============================================
+     SERVICES
+  ============================================ */
+  .section{ padding:96px 0; }
+
+  .section-head{
+    text-align:center;
+    max-width:640px;
+    margin:0 auto 60px;
+  }
+  .section-head .eyebrow{ margin-bottom:20px; }
+  .section-head h2{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:clamp(1.8rem, 3.4vw, 2.5rem);
+    color:var(--accent-deep);
+    margin-bottom:14px;
+    line-height:1.15;
+  }
+  .section-head p{ color:var(--ink-soft); font-size:1.05rem; }
+
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:30px;
+  }
+
+  .service-card{
+    padding:38px 32px 34px;
+    border-radius:var(--r-lg);
+    box-shadow:9px 9px 18px var(--shadow-dark), -9px -9px 18px var(--shadow-light);
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+    display:flex;
+    flex-direction:column;
+  }
+  .service-card:hover{
+    transform:translateY(-6px);
+    box-shadow:12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light);
+  }
+
+  .service-ico{
+    width:64px; height:64px;
+    border-radius:18px;
+    display:grid; place-items:center;
+    margin-bottom:24px;
+    box-shadow:inset 4px 4px 9px var(--shadow-dark), inset -4px -4px 9px var(--shadow-light);
+  }
+  .service-ico svg{ width:30px; height:30px; color:var(--gold-deep); }
+
+  .service-card h3{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:1.28rem;
+    color:var(--accent-deep);
+    margin-bottom:6px;
+  }
+  .service-card .surfaces{
+    font-size:0.78rem;
+    font-weight:600;
+    color:var(--gold-deep);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    margin-bottom:16px;
+  }
+  .service-card p{
+    color:var(--ink-soft);
+    font-size:0.96rem;
+    flex-grow:1;
+  }
+
+  .service-card .card-link{
+    margin-top:22px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-weight:700;
+    font-size:0.88rem;
+    color:var(--accent);
+  }
+  .service-card .card-link svg{ width:15px; height:15px; transition:transform 0.2s ease; }
+  .service-card:hover .card-link svg{ transform:translateX(4px); }
+
+  /* ============================================
+     WHY CHOOSE US
+  ============================================ */
+  .why{
+    background:var(--bg);
+  }
+
+  .why-grid{
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:60px;
+    align-items:center;
+  }
+
+  .why-visual{
+    position:relative;
+    padding:44px;
+    border-radius:var(--r-lg);
+    box-shadow:inset 8px 8px 16px var(--shadow-dark), inset -8px -8px 16px var(--shadow-light);
+  }
+
+  .why-visual-inner{
+    border-radius:var(--r-md);
+    padding:38px;
+    box-shadow:8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+  }
+
+  .why-quote-mark{
+    font-family:var(--font-display);
+    font-size:3.4rem;
+    color:var(--gold);
+    line-height:0.6;
+    margin-bottom:14px;
+    font-weight:800;
+  }
+
+  .why-quote{
+    font-family:var(--font-display);
+    font-size:1.18rem;
+    font-weight:600;
+    color:var(--accent-deep);
+    line-height:1.4;
+    margin-bottom:24px;
+  }
+
+  .why-signature{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding-top:22px;
+    border-top:1px solid rgba(185,190,199,0.5);
+  }
+  .why-signature .avatar{
+    width:50px; height:50px;
+    border-radius:50%;
+    display:grid; place-items:center;
+    background:var(--accent-deep);
+    color:#fff;
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:1.05rem;
+    box-shadow:3px 3px 8px var(--shadow-dark), -3px -3px 8px var(--shadow-light);
+    flex-shrink:0;
+  }
+  .why-signature .who .who-name{ font-weight:700; font-size:0.92rem; color:var(--ink); }
+  .why-signature .who .who-role{ font-size:0.78rem; color:var(--ink-soft); }
+
+  .why-list{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+
+  .why-item{
+    display:flex;
+    gap:20px;
+    padding:26px;
+    border-radius:var(--r-md);
+    box-shadow:6px 6px 13px var(--shadow-dark), -6px -6px 13px var(--shadow-light);
+    transition:box-shadow 0.25s ease;
+  }
+  .why-item:hover{
+    box-shadow:8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+  }
+  .why-item .ico{
+    width:52px; height:52px;
+    border-radius:14px;
+    display:grid; place-items:center;
+    box-shadow:inset 3px 3px 7px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light);
+    flex-shrink:0;
+  }
+  .why-item .ico svg{ width:24px; height:24px; color:var(--accent); }
+  .why-item h4{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:1.05rem;
+    color:var(--accent-deep);
+    margin-bottom:6px;
+  }
+  .why-item p{ color:var(--ink-soft); font-size:0.92rem; }
+
+  /* ============================================
+     CLOSING CTA BANNER
+  ============================================ */
+  .cta-banner{
+    padding:80px 0 100px;
+  }
+
+  .cta-panel{
+    padding:64px 56px;
+    border-radius:40px;
+    text-align:center;
+    position:relative;
+    box-shadow:10px 10px 22px var(--shadow-dark), -10px -10px 22px var(--shadow-light);
+    overflow:hidden;
+  }
+
+  .cta-panel::before{
+    content:'';
+    position:absolute;
+    top:-80px; right:-80px;
+    width:240px; height:240px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(217,142,63,0.16), transparent 70%);
+  }
+  .cta-panel::after{
+    content:'';
+    position:absolute;
+    bottom:-90px; left:-60px;
+    width:220px; height:220px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(43,88,118,0.14), transparent 70%);
+  }
+
+  .cta-panel h2{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:clamp(1.8rem, 3.6vw, 2.7rem);
+    color:var(--accent-deep);
+    margin-bottom:16px;
+    position:relative;
+    z-index:1;
+  }
+  .cta-panel p{
+    color:var(--ink-soft);
+    font-size:1.08rem;
+    max-width:560px;
+    margin:0 auto 36px;
+    position:relative;
+    z-index:1;
+  }
+
+  .cta-panel .btn-primary{
+    position:relative;
+    z-index:1;
+    padding:19px 38px;
+    font-size:1.05rem;
+  }
+
+  .cta-panel .cta-sub{
+    margin-top:18px;
+    font-size:0.84rem;
+    color:var(--ink-soft);
+    position:relative;
+    z-index:1;
+  }
+
+  /* ============================================
+     FOOTER
+  ============================================ */
+  footer{
+    padding:36px 0 120px;
+    text-align:center;
+  }
+  footer .foot-brand{
+    font-family:var(--font-display);
+    font-weight:700;
+    color:var(--accent-deep);
+    margin-bottom:6px;
+  }
+  footer .foot-meta{
+    font-size:0.82rem;
+    color:var(--ink-soft);
+  }
+
+  /* ============================================
+     FLOATING WHATSAPP BUTTON
+  ============================================ */
+  .wa-float{
+    position:fixed;
+    bottom:28px;
+    right:28px;
+    z-index:100;
+    width:66px;
+    height:66px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:var(--bg);
+    box-shadow:
+      8px 8px 16px var(--shadow-dark),
+      -8px -8px 16px var(--shadow-light);
+    transition:box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .wa-float svg{
+    width:30px;
+    height:30px;
+    color:var(--wa);
+    transition:transform 0.3s ease;
+  }
+  .wa-float::before{
+    content:'';
+    position:absolute;
+    inset:-6px;
+    border-radius:50%;
+    border:2px solid rgba(47,174,106,0.35);
+    opacity:0;
+    transform:scale(0.85);
+    transition:opacity 0.3s ease, transform 0.3s ease;
+  }
+  .wa-float:hover{
+    transform:translateY(-4px);
+    box-shadow:
+      4px 4px 10px var(--shadow-dark),
+      -4px -4px 10px var(--shadow-light),
+      0 14px 22px -10px rgba(47,174,106,0.45);
+  }
+  .wa-float:hover svg{ transform:scale(1.1) rotate(-6deg); }
+  .wa-float:hover::before{ opacity:1; transform:scale(1); }
+  .wa-float:active{
+    transform:translateY(0) scale(0.94);
+    box-shadow:inset 4px 4px 9px var(--shadow-dark), inset -4px -4px 9px var(--shadow-light);
+  }
+
+  .wa-pulse{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    border:2px solid rgba(47,174,106,0.5);
+    animation:pulse-ring 2.6s ease-out infinite;
+  }
+  @keyframes pulse-ring{
+    0%{ transform:scale(1); opacity:0.6; }
+    100%{ transform:scale(1.55); opacity:0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .wa-pulse{ animation:none; }
+  }
+
+  /* ============================================
+     ACCESSIBILITY — focus states
+  ============================================ */
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  /* ============================================
+     RESPONSIVE
+  ============================================ */
+  @media (max-width: 1080px){
+    .why-grid{ grid-template-columns:1fr; }
+    .why-visual{ max-width:480px; margin:0 auto; }
+  }
+
+  @media (max-width: 960px){
+    .services-grid{ grid-template-columns:1fr 1fr; }
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero-visual{ order:-1; height:320px; margin-bottom:8px; }
+    .disc-orbit{ width:280px; height:280px; }
+    .disc-ring.r2{ inset:26px; }
+    .disc-ring.r3{ inset:52px; }
+    .disc-core{ inset:78px; }
+  }
+
+  @media (max-width: 680px){
+    .wrap{ padding:0 20px; }
+    .navbar-inner{ padding:14px 20px; }
+    .brand-text .tag{ display:none; }
+    .nav-cta span{ display:none; }
+    .nav-cta{ padding:13px; }
+    .nav-cta svg{ width:18px; height:18px; }
+
+    .hero{ padding:44px 0 64px; }
+    .hero h1{ font-size:clamp(1.9rem, 7vw, 2.4rem); }
+    .hero p.lead{ font-size:1rem; }
+    .hero-ctas{ flex-direction:column; align-items:stretch; gap:14px; }
+    .btn-primary, .btn-secondary{ justify-content:center; }
+    .trust-row{ gap:16px 22px; }
+
+    .hero-visual{ height:260px; }
+    .disc-orbit{ width:220px; height:220px; }
+    .disc-ring.r2{ inset:20px; }
+    .disc-ring.r3{ inset:40px; }
+    .disc-core{ inset:60px; }
+    .float-card{ padding:10px 14px; }
+    .float-card .val{ font-size:0.82rem; }
+    .float-card.fc-1{ left:-6px; }
+    .float-card.fc-2{ right:-6px; }
+
+    .section{ padding:64px 0; }
+    .section-head{ margin-bottom:40px; }
+    .services-grid{ grid-template-columns:1fr; gap:22px; }
+    .service-card{ padding:30px 26px; }
+
+    .why-visual{ padding:26px; }
+    .why-visual-inner{ padding:28px; }
+    .why-quote{ font-size:1.05rem; }
+    .why-item{ padding:20px; gap:16px; }
+
+    .cta-panel{ padding:46px 26px; border-radius:28px; }
+    .cta-panel p{ font-size:0.98rem; }
+
+    .wa-float{ width:58px; height:58px; bottom:20px; right:20px; }
+    .wa-float svg{ width:26px; height:26px; }
+  }
+
+  @media (max-width: 380px){
+    .hero h1{ font-size:1.85rem; }
+    .disc-orbit{ width:190px; height:190px; }
+    .disc-ring.r2{ inset:16px; }
+    .disc-ring.r3{ inset:32px; }
+    .disc-core{ inset:50px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     NAVBAR
+============================================ -->
+<header class="navbar">
+  <div class="navbar-inner">
+    <div class="brand">
+      <div class="neu-raised brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2b5876" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"></circle>
+          <circle cx="12" cy="12" r="3" fill="#d98e3f" stroke="none"></circle>
+          <path d="M12 3v3M12 18v3M3 12h3M18 12h3"></path>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="name">Clean Tech</span>
+        <span class="tag">Pulido &amp; Restauración</span>
+      </div>
+    </div>
+    <a href="https://wa.me/18297747632" class="nav-cta">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.43 5.16L2 22l5.07-1.53a9.86 9.86 0 0 0 4.97 1.33h.01c5.46 0 9.91-4.45 9.91-9.91A9.87 9.87 0 0 0 12.04 2zm5.81 14.1c-.25.7-1.44 1.34-1.99 1.42-.51.08-1.15.11-1.86-.12-.43-.13-.97-.31-1.68-.61-2.95-1.27-4.87-4.24-5.02-4.44-.15-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.59-.37.78-.37.2 0 .39 0 .56.01.18.01.42-.07.65.5.25.6.83 2.06.9 2.21.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.45.51-.15.14-.3.29-.13.58.18.3.79 1.32 1.7 2.13 1.17 1.04 2.16 1.37 2.46 1.52.3.15.48.13.65-.05.18-.18.74-.85.94-1.14.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.49.23.56.35.07.13.07.74-.18 1.44z"/></svg>
+      <span>WhatsApp</span>
+    </a>
+  </div>
+</header>
+
+<!-- ============================================
+     HERO
+============================================ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+
+    <div class="hero-copy">
+      <div class="neu-raised eyebrow">
+        <span class="dot"></span>
+        Ingeniería Civil aplicada a tus pisos
+      </div>
+
+      <h1>Tu piso no necesita reemplazo,<br>necesita un <span class="accent">técnico que sepa</span> lo que hace.</h1>
+
+      <p class="lead">
+        Recuperamos el brillo original de granito, mármol y terrazo con maquinaria propia
+        y la precisión de un <strong>Ingeniero Civil licenciado</strong>. Sin intermediarios,
+        sin subcontratistas — solo el Ing. Jose R. Paulino y un trabajo bien hecho.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="https://wa.me/18297747632?text=Hola%2C%20quisiera%20una%20cotizaci%C3%B3n%20para%20pulir%20mi%20piso" class="btn-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.43 5.16L2 22l5.07-1.53a9.86 9.86 0 0 0 4.97 1.33h.01c5.46 0 9.91-4.45 9.91-9.91A9.87 9.87 0 0 0 12.04 2zm5.81 14.1c-.25.7-1.44 1.34-1.99 1.42-.51.08-1.15.11-1.86-.12-.43-.13-.97-.31-1.68-.61-2.95-1.27-4.87-4.24-5.02-4.44-.15-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.59-.37.78-.37.2 0 .39 0 .56.01.18.01.42-.07.65.5.25.6.83 2.06.9 2.21.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.45.51-.15.14-.3.29-.13.58.18.3.79 1.32 1.7 2.13 1.17 1.04 2.16 1.37 2.46 1.52.3.15.48.13.65-.05.18-.18.74-.85.94-1.14.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.49.23.56.35.07.13.07.74-.18 1.44z"/></svg>
+          Pide tu cotización gratis
+        </a>
+        <a href="#servicios" class="neu-raised btn-secondary">
+          Ver servicios
+        </a>
+      </div>
+
+      <div class="trust-row">
+        <div class="trust-item">
+          <span class="neu-raised ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </span>
+          Ingeniero Civil Licenciado
+        </div>
+        <div class="trust-item">
+          <span class="neu-raised ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </span>
+          Puntualidad garantizada
+        </div>
+        <div class="trust-item">
+          <span class="neu-raised ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-1a6 6 0 0112 0v1"/><circle cx="17" cy="9" r="2.5"/></svg>
+          </span>
+          Equipo propio, sin subcontratos
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="disc-orbit">
+        <div class="disc-ring"></div>
+        <div class="disc-ring r2"></div>
+        <div class="disc-ring r3"></div>
+        <div class="disc-core"></div>
+      </div>
+
+      <div class="neu-raised float-card fc-1">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7l3-7z"/></svg>
+        </span>
+        <div>
+          <div class="label">Acabado</div>
+          <div class="val">Espejo real</div>
+        </div>
+      </div>
+
+      <div class="neu-raised float-card fc-2">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
+        </span>
+        <div>
+          <div class="label">Superficies</div>
+          <div class="val">Granito · Mármol · Terrazo</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================
+     SERVICIOS
+============================================ -->
+<section class="section" id="servicios">
+  <div class="wrap">
+
+    <div class="section-head">
+      <div class="neu-raised eyebrow">
+        <span class="dot"></span>
+        Lo que hacemos
+      </div>
+      <h2>Tres servicios, un mismo nivel de exigencia</h2>
+      <p>Cada trabajo se ejecuta con criterio técnico de ingeniería, no a ojo. Así garantizamos un resultado parejo, duradero y sin sorpresas.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="neu-flat service-card">
+        <span class="neu-raised service-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7l3-7z"/></svg>
+        </span>
+        <span class="surfaces">Granito · Mármol · Terrazo</span>
+        <h3>Pulido y Cristalizado</h3>
+        <p>
+          Devolvemos el brillo de espejo que tu piso tenía el primer día. Mediante un proceso
+          de pulido progresivo y cristalizado final, sellamos los poros de la superficie y
+          creamos una capa de alta resistencia al tráfico y a las manchas. El resultado: un
+          piso más luminoso, más fácil de limpiar y con una protección que se mantiene por años.
+        </p>
+        <a href="https://wa.me/18297747632?text=Quiero%20informaci%C3%B3n%20sobre%20pulido%20y%20cristalizado" class="card-link">
+          Consultar este servicio
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="neu-flat service-card">
+        <span class="neu-raised service-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14l4-4 3 3 5-6 4 4"/><path d="M3 21h18"/></svg>
+        </span>
+        <span class="surfaces">Reparación estructural</span>
+        <h3>Restauración de Grietas</h3>
+        <p>
+          Una grieta no es solo estética: es un punto débil que sigue creciendo si no se trata
+          a tiempo. Con criterio de ingeniero, diagnosticamos la causa, rellenamos y nivelamos
+          la zona afectada con materiales compatibles con tu piso, y pulimos hasta dejarla
+          invisible. Resolvemos el problema de raíz, no lo disimulamos.
+        </p>
+        <a href="https://wa.me/18297747632?text=Tengo%20grietas%20en%20mi%20piso%2C%20necesito%20una%20evaluaci%C3%B3n" class="card-link">
+          Consultar este servicio
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="neu-flat service-card">
+        <span class="neu-raised service-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 7l2 13h14l2-13M8 7V4h8v3"/></svg>
+        </span>
+        <span class="surfaces">Entregas y remodelaciones</span>
+        <h3>Limpieza Post-Construcción</h3>
+        <p>
+          Después de una obra o remodelación, el piso queda cubierto de cemento, pintura y
+          residuos que un trapeador normal no puede quitar. Hacemos la limpieza profunda y el
+          pulido inicial necesarios para que tu propiedad esté lista para entregar, habitar o
+          mostrar — tal como se imaginó en los planos.
+        </p>
+        <a href="https://wa.me/18297747632?text=Necesito%20limpieza%20post-construcci%C3%B3n%20para%20mi%20propiedad" class="card-link">
+          Consultar este servicio
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     POR QUÉ ELEGIRNOS
+============================================ -->
+<section class="section why">
+  <div class="wrap why-grid">
+
+    <div class="why-visual">
+      <div class="neu-raised why-visual-inner">
+        <div class="why-quote-mark">"</div>
+        <p class="why-quote">
+          No subcontrato el trabajo ni alquilo equipos de última hora. Yo mismo opero mi
+          maquinaria, en cada visita, de principio a fin.
+        </p>
+        <div class="why-signature">
+          <div class="avatar">JP</div>
+          <div class="who">
+            <div class="who-name">Ing. Jose R. Paulino</div>
+            <div class="who-role">Ingeniero Civil · Fundador de Clean Tech</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-content">
+      <div class="neu-raised eyebrow">
+        <span class="dot"></span>
+        Por qué elegirnos
+      </div>
+      <h2 style="font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.4rem); color:var(--accent-deep); margin-bottom:14px; line-height:1.15;">
+        Un ingeniero al frente de tu proyecto, no un vendedor
+      </h2>
+      <p style="color:var(--ink-soft); font-size:1.05rem; margin-bottom:36px; max-width:520px;">
+        En Clean Tech no contratas una cuadrilla genérica. Contratas el criterio técnico de
+        un profesional que entiende cómo se comportan los materiales de construcción —
+        y que responde personalmente por su trabajo.
+      </p>
+
+      <div class="why-list">
+
+        <div class="neu-raised why-item">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7l3-7z"/></svg>
+          </span>
+          <div>
+            <h4>Respaldo de Ingeniería Civil</h4>
+            <p>Cada diagnóstico y cada técnica aplicada parte de un conocimiento real de estructuras y materiales — no de prueba y error.</p>
+          </div>
+        </div>
+
+        <div class="neu-raised why-item">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </span>
+          <div>
+            <h4>Puntualidad que se respeta</h4>
+            <p>La hora acordada es la hora de llegada. Tu tiempo y el de tu familia valen, y lo tratamos como tal en cada cita.</p>
+          </div>
+        </div>
+
+        <div class="neu-raised why-item">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-1a6 6 0 0112 0v1"/><circle cx="17" cy="9" r="2.5"/></svg>
+          </span>
+          <div>
+            <h4>Maquinaria propia, trabajo directo</h4>
+            <p>No alquilamos equipos de última hora ni delegamos el trabajo a terceros. La máquina es nuestra y la operamos nosotros mismos.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================
+     CTA DE CIERRE
+============================================ -->
+<section class="cta-banner">
+  <div class="wrap">
+    <div class="neu-flat cta-panel">
+      <h2>Tu piso merece la atención de un profesional</h2>
+      <p>
+        Escríbenos ahora y recibe una cotización clara, sin compromiso, directamente del
+        Ing. Jose R. Paulino. Evaluamos tu caso y te decimos exactamente qué necesita tu piso.
+      </p>
+      <a href="https://wa.me/18297747632?text=Hola%2C%20quisiera%20una%20cotizaci%C3%B3n%20para%20mi%20piso" class="btn-primary">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.43 5.16L2 22l5.07-1.53a9.86 9.86 0 0 0 4.97 1.33h.01c5.46 0 9.91-4.45 9.91-9.91A9.87 9.87 0 0 0 12.04 2zm5.81 14.1c-.25.7-1.44 1.34-1.99 1.42-.51.08-1.15.11-1.86-.12-.43-.13-.97-.31-1.68-.61-2.95-1.27-4.87-4.24-5.02-4.44-.15-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.59-.37.78-.37.2 0 .39 0 .56.01.18.01.42-.07.65.5.25.6.83 2.06.9 2.21.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.45.51-.15.14-.3.29-.13.58.18.3.79 1.32 1.7 2.13 1.17 1.04 2.16 1.37 2.46 1.52.3.15.48.13.65-.05.18-.18.74-.85.94-1.14.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.49.23.56.35.07.13.07.74-.18 1.44z"/></svg>
+        Solicitar mi cotización por WhatsApp
+      </a>
+      <div class="cta-sub">Respuesta directa del ingeniero · Sin intermediarios · Toda la R.D.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-brand">Clean Tech</div>
+    <div class="foot-meta">Ing. Jose R. Paulino · Pulido y Restauración de Pisos · República Dominicana</div>
+  </div>
+</footer>
+
+<!-- ============================================
+     FLOATING WHATSAPP BUTTON
+============================================ -->
+<a href="https://wa.me/18297747632?text=Hola%2C%20quisiera%20una%20cotizaci%C3%B3n" class="wa-float" aria-label="Escribir por WhatsApp">
+  <span class="wa-pulse"></span>
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.43 5.16L2 22l5.07-1.53a9.86 9.86 0 0 0 4.97 1.33h.01c5.46 0 9.91-4.45 9.91-9.91A9.87 9.87 0 0 0 12.04 2zm5.81 14.1c-.25.7-1.44 1.34-1.99 1.42-.51.08-1.15.11-1.86-.12-.43-.13-.97-.31-1.68-.61-2.95-1.27-4.87-4.24-5.02-4.44-.15-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.59-.37.78-.37.2 0 .39 0 .56.01.18.01.42-.07.65.5.25.6.83 2.06.9 2.21.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.45.51-.15.14-.3.29-.13.58.18.3.79 1.32 1.7 2.13 1.17 1.04 2.16 1.37 2.46 1.52.3.15.48.13.65-.05.18-.18.74-.85.94-1.14.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.49.23.56.35.07.13.07.74-.18 1.44z"/></svg>
+</a>
+
+</body>
+</html>
